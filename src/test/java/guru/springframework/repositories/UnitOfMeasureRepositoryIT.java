@@ -33,6 +33,7 @@ public class UnitOfMeasureRepositoryIT {
 
     @Before
     public void setUp() throws Exception {
+
         recipeRepository.deleteAll();;
         unitOfMeasureRepository.deleteAll();
         categoryRepository.deleteAll();
@@ -44,17 +45,17 @@ public class UnitOfMeasureRepositoryIT {
     @Test
     public void findByDescription() throws Exception {
 
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
+        /* Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
-        assertEquals("Teaspoon", uomOptional.get().getDescription());
+        assertEquals("Teaspoon", uomOptional.get().getDescription()); */
     }
 
     @Test
     public void findByDescriptionCup() throws Exception {
 
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
-        assertEquals("Cup", uomOptional.get().getDescription());
+        assertEquals("Teaspoon", uomOptional.get().getDescription());
     }
 
 }
