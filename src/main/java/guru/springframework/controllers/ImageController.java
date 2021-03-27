@@ -34,7 +34,7 @@ public class ImageController {
 
     @GetMapping("recipe/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+        model.addAttribute("recipe", recipeService.findCommandById(id).block());
 
         return "recipe/imageuploadform";
     }
@@ -42,16 +42,16 @@ public class ImageController {
     @PostMapping("recipe/{id}/image")
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
 
-        imageService.saveImageFile(id, file);
+        imageService.saveImageFile(id, file).block();
 
         return "redirect:/recipe/" + id + "/show";
     }
 
     @GetMapping("recipe/{id}/recipeimage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        Mono<RecipeCommand> recipeCommand = recipeService.findCommandById(id);
+        RecipeCommand recipeCommand = recipeService.findCommandById(id).block();
 
-        /* if (recipeCommand.getImage() != null) {
+        if (recipeCommand.getImage() != null) {
             byte[] byteArray = new byte[recipeCommand.getImage().length];
             int i = 0;
 
@@ -62,6 +62,6 @@ public class ImageController {
             response.setContentType("image/jpeg");
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
-        } */
+        }
     }
 }
